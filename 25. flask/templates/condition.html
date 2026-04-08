@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .result { padding: 30px; border-radius: 12px; text-align: center; font-size: 1.2em; }
+        .excellent { background: #d4edda; color: #155724; }
+        .good { background: #fff3cd; color: #856404; }
+        .pass { background: #cce5ff; color: #004085; }
+        .fail { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <div class="result 
+        {% if score >= 90 %}excellent
+        {% elif score >= 80 %}good
+        {% elif score >= 60 %}pass
+        {% else %}fail{% endif %}">
+        <p>你的分数：{{ score }}</p>
+        {% if score >= 90 %}
+            <p>太棒了！优秀！🌟</p>
+        {% elif score >= 80 %}
+            <p>很好！继续保持！👍</p>
+        {% elif score >= 60 %}
+            <p>及格了，还需努力！💪</p>
+        {% else %}
+            <p>不及格，要加油哦！📚</p>
+        {% endif %}
+    </div>
+    <p>
+        <a href="{{ url_for('condition_demo', score=95) }}">95分</a> |
+        <a href="{{ url_for('condition_demo', score=85) }}">85分</a> |
+        <a href="{{ url_for('condition_demo', score=65) }}">65分</a> |
+        <a href="{{ url_for('condition_demo', score=45) }}">45分</a>
+    </p>
+    <p><a href="{{ url_for('index') }}">返回首页</a></p>
+</body>
+</html>

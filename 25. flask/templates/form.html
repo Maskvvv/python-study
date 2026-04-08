@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .form-container { background: #f8f9fa; padding: 30px; border-radius: 12px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { background: #007bff; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .flash { padding: 12px; margin: 10px 0; border-radius: 4px; }
+        .error { background: #f8d7da; color: #721c24; }
+        .success { background: #d4edda; color: #155724; }
+    </style>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <div class="form-container">
+        <form method="POST" action="{{ url_for('form_demo') }}">
+            <label>用户名：</label>
+            <input type="text" name="username" placeholder="请输入用户名">
+            
+            <label>邮箱：</label>
+            <input type="email" name="email" placeholder="请输入邮箱">
+            
+            <button type="submit">提交</button>
+        </form>
+    </div>
+    
+    <p><a href="{{ url_for('index') }}">返回首页</a></p>
+</body>
+</html>

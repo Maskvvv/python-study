@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .message { background: #f0f8ff; padding: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <div class="message">
+        <p>{{ message }}</p>
+    </div>
+    <p><a href="{{ url_for('user', name='Master') }}">访问用户页面</a></p>
+    <p><a href="{{ url_for('loop_demo') }}">循环示例</a></p>
+    <p><a href="{{ url_for('condition_demo', score=85) }}">条件示例</a></p>
+    <p><a href="{{ url_for('form_demo') }}">表单示例</a></p>
+</body>
+</html>

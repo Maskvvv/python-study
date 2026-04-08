@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .user-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 12px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="user-card">
+        <h1>你好，{{ name }}！👋</h1>
+        <p>欢迎来到你的个人主页</p>
+    </div>
+    <p><a href="{{ url_for('index') }}">返回首页</a></p>
+</body>
+</html>
