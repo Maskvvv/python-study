@@ -210,6 +210,7 @@ async def demo_async_condition():
     shared_data = []
 
     async def producer():
+        await asyncio.sleep(0.5)
         async with condition:
             shared_data.append("数据")
             print("  生产者: 添加数据")
@@ -225,10 +226,8 @@ async def demo_async_condition():
 
     await asyncio.gather(
         asyncio.create_task(consumer()),
-        asyncio.create_task(asyncio.sleep(0.5)),
+        asyncio.create_task(producer()),
     )
-    await producer()
-    await asyncio.sleep(0.1)
 
 
 asyncio.run(demo_async_condition())
