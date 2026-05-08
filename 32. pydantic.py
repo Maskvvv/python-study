@@ -30,7 +30,7 @@ print("=" * 50)
 
 print("\n【2. 基本 Model】")
 
-from pydantic import BaseModel
+from pydantic import BaseModel  # noqa: E402
 
 
 class User(BaseModel):
