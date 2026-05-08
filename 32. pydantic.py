@@ -43,7 +43,7 @@ user = User(name="小明", age=18, email="xiaoming@example.com")
 print(f"  user.name  = {user.name}")
 print(f"  user.age   = {user.age}")
 print(f"  user.email = {user.email}")
-print(f"  user.model_dump() = {user.model_dump()}")
+print(f"  user.model_dump() = {user.model_dump_json()}")
 
 print("[OK] 基本 Model 演示完成")
 
