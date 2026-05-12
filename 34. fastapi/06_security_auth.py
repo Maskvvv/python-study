@@ -6,6 +6,7 @@
 """
 
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.routing import APIRoute
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from typing import Optional

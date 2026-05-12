@@ -5,6 +5,7 @@
 亲爱的主人，这节我们学习如何处理文件上传和提供静态文件服务！
 """
 
+import html
 from fastapi import FastAPI, File, UploadFile, HTTPException, status
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
@@ -162,7 +163,7 @@ async def limit_upload_size(request: Request, call_next):
     if request.method == "POST" and "/upload" in request.url.path:
         content_length = request.headers.get("content-length")
         if content_length and int(content_length) > MAX_FILE_SIZE:
-            return JSONResponse(
+            return JSONResponse(  # noqa: F821
                 status_code=413,
                 content={"detail": f"文件太大，最大允许 {MAX_FILE_SIZE // 1024 // 1024}MB"},
             )
@@ -175,11 +176,22 @@ async def limit_upload_size(request: Request, call_next):
 # 如果需要提供静态文件目录，可以这样：
 
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 
-# 挂载静态文件目录
-# 访问 http://127.0.0.1:8000/static/文件名 即可
-os.makedirs("static", exist_ok=True)
-app.mount("/static", StaticFiles(directory="static"), name="static")
+STATIC_DIR = "static"
+os.makedirs(STATIC_DIR, exist_ok=True)
+
+
+@app.get("/static", response_class=HTMLResponse)
+async def list_static_files():
+    files = os.listdir(STATIC_DIR)
+    links = "".join(
+        f'<li><a href="/static/{f}">{f}</a></li>' for f in files
+    )
+    return f"<h2>Static Files</h2><ul>{links}</ul>" if links else "<h2>Static Files</h2><p>目录为空</p>"
+
+
+app.mount("/static", StaticFiles(directory=STATIC_DIR, html=True), name="static")
 
 
 # ============================================================

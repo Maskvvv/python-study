@@ -192,7 +192,7 @@ async def get_json():
 # 八、设置 Cookie 和 Header
 # ============================================================
 
-from fastapi import response
+from fastapi.responses import JSONResponse
 
 
 @app.post("/cookie-and-header")
