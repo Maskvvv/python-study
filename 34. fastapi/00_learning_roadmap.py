@@ -31,6 +31,11 @@ FastAPI 学习路线总结
 第四阶段：数据库与实战（2 周）
 ├── 10_database_sqlalchemy.py    # 数据库集成 SQLAlchemy
 └── 11_project_todo.py           # 实战项目：Todo API
+
+第五阶段：AI 集成（🔥 重点！1-2 周）
+├── 12_sse_streaming.py          # SSE 与流式响应
+├── 13_ai_integration.py         # AI API 集成（OpenAI 流式对话）
+└── 14_background_tasks.py       # 后台任务与长时AI任务
 """
 
 # ============================================

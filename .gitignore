@@ -160,3 +160,4 @@ Desktop.ini
 uploads/
 static/
 *.db
+.env
