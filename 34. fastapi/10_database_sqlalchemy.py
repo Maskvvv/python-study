@@ -22,15 +22,34 @@ app = FastAPI(title="数据库集成 SQLAlchemy")
 # 这里用 SQLite 做演示（不需要额外安装数据库服务）
 # 生产环境可以换成 PostgreSQL / MySQL
 
+# 数据库连接地址
+# 格式：sqlite:///./文件名.db
+#   sqlite:///  = 固定前缀，表示使用 SQLite 数据库
+#   ./          = 当前目录（相对于运行 uvicorn 的工作目录）
+#   fastapi_demo.db = 数据库文件名，不存在会自动创建
+# 生产环境可换成：postgresql://user:pass@localhost/dbname
 SQLALCHEMY_DATABASE_URL = "sqlite:///./fastapi_demo.db"
 
+# 引擎 = 数据库的"连接池管理器"
+# 所有与数据库的交互都通过它来建立连接
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
+    # SQLite 特有参数：允许多线程共享同一个连接
+    # 因为 FastAPI 用异步处理，多个请求可能同时访问数据库
+    # SQLite 默认只允许创建连接的线程使用它，这里关闭这个限制
     connect_args={"check_same_thread": False},
 )
 
+# Session 工厂 = 生成"数据库会话"的模板
+# 每次请求时用它创建一个独立的 Session，请求结束后关闭
+# autocommit=False → 不自动提交，需要手动 commit（更安全，出错可回滚）
+# autoflush=False  → 不自动刷新，手动控制何时把变更写入数据库
+# bind=engine      → 绑定到上面创建的引擎
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+# ORM 基类 = 所有数据模型的"父类"
+# 定义表模型时继承它：class User(Base): ...
+# 它会自动把 Python 类映射成数据库表
 Base = declarative_base()
 
 
@@ -206,4 +225,5 @@ async def get_db():
 
 if __name__ == "__main__":
     import uvicorn
+    print(type(TodoModel.id))
     uvicorn.run("10_database_sqlalchemy:app", host="127.0.0.1", port=8000, reload=True)
